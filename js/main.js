@@ -18,8 +18,10 @@ function play() {
 	var screen_w = c.width;
 	var screen_h = c.height;
 	
+	var frame = 0;
+	
 	//
-	var my_rocket = new Rocket(rocket_img, 600, 418);
+	var my_rocket = new Rocket(rocket_img, 600, 398);
 
 	// Controls
 	var key_up = false;
@@ -83,9 +85,13 @@ function play() {
 	}
 	
 	
+	//
 	function drawWorld() {
-		// background
-		//ctx.drawImage(grass_img, x*map.tile_size, y*map.tile_size, map.tile_size, map.tile_size, x*map.tile_size, y*map.tile_size, map.tile_size, map.tile_size);
+		
+		ctx.drawImage(clouds_img, frame/4, 351);
+		ctx.drawImage(clouds_img, frame/4 - screen_w, 351);
+
+		ctx.drawImage(tower_img, 556, 351);
 	}
 	
 	// draw loop
@@ -100,7 +106,7 @@ function play() {
 		delta = now - then;
 		
 		if (delta > interval) {
-
+			
 			ctx.clearRect(0, 0, screen_w, screen_h);
 			drawWorld();
 			
@@ -109,6 +115,11 @@ function play() {
 					
 			// update time stuffs
 			then = now - (delta % interval);		
+			
+			frame += 1;
+			if (frame == screen_w*4) {
+				frame = 0;
+			}
 		}
 		
 	}
