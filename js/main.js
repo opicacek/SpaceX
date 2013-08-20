@@ -91,14 +91,14 @@ function play() {
 		
 		var intro_frame = frame + 100;
 		
-		var space_scale = intro_frame / 1000;
+		var space_scale = intro_frame / 2000;
 		
 		ctx.globalAlpha = (100 - intro_frame) / 40;
 		
 		ctx.save();
 		ctx.scale(1 + space_scale, 1 + space_scale);
 		//ctx.drawImage(space_img, 0, 0);
-		ctx.drawImage(space_img, -intro_frame/3, -intro_frame/3);
+		ctx.drawImage(space_img, -intro_frame/6, -intro_frame/6);
 		ctx.restore();
 		
 		ctx.drawImage(spacex_logo_img, 135, 150);
