@@ -17,3 +17,6 @@ clouds_img.src = "img/clouds.png";
 // rocket
 var rocket_img = new Image();
 rocket_img.src = "img/rocket.png";
+
+var smoke_img = new Image();
+smoke_img.src = "img/smoke.png";

@@ -23,8 +23,10 @@ function play() {
 	$(c).css('background-image', 'url("img/bg.png")');
 	
 	//
-	var my_rocket = new Rocket(rocket_img, 615, 392);
-
+	var map_ground_limit = 392;
+	var my_rocket = new Rocket(rocket_img, 615, map_ground_limit);
+	var smokes = [];
+	
 	// Controls
 	var key_up = false;
 	var key_down = false;
@@ -150,6 +152,26 @@ function play() {
 			
 			my_rocket.move(key_up, key_down, key_left, key_right);
 			my_rocket.draw(ctx);
+			
+			
+			//TODO adding smoke
+			var rocket_h = map_ground_limit - my_rocket.y + my_rocket.h;
+			if (my_rocket.throttle > 0.1 && rocket_h < 50) {
+				smokes.push( new Smoke(my_rocket.x - my_rocket.w/2, map_ground_limit, rocket_h, my_rocket.throttle, my_rocket.rotation) );
+			}
+			
+			for (var i = 0; i < smokes.length;) {
+				var s = smokes[i];
+				
+				s.move();
+				s.draw(ctx);
+				
+				if (s.die) { // remove old smoke puff
+					smokes.splice(i, 1);
+				} else {
+					i++;
+				}
+			}
 					
 			// update time stuffs
 			then = now - (delta % interval);
