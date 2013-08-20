@@ -1,3 +1,11 @@
+// intro
+var space_img = new Image();
+space_img.src = "img/space.png";
+
+var spacex_logo_img = new Image();
+spacex_logo_img.src = "img/spacex_logo.png";
+
+
 // world
 var tower_img = new Image();
 tower_img.src = "img/tower.png";

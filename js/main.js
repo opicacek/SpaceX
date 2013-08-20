@@ -18,10 +18,12 @@ function play() {
 	var screen_w = c.width;
 	var screen_h = c.height;
 	
-	var frame = 0;
+	var frame = -100; // 100 frames for intro
+	var intro = true;
+	$(c).css('background-image', 'url("img/bg.png")');
 	
 	//
-	var my_rocket = new Rocket(rocket_img, 600, 398);
+	var my_rocket = new Rocket(rocket_img, 615, 392);
 
 	// Controls
 	var key_up = false;
@@ -84,6 +86,28 @@ function play() {
 		}
 	}
 	
+	//
+	function drawIntro() {
+		
+		var intro_frame = frame + 100;
+		
+		var space_scale = intro_frame / 1000;
+		
+		ctx.globalAlpha = (100 - intro_frame) / 40;
+		
+		ctx.save();
+		ctx.scale(1 + space_scale, 1 + space_scale);
+		//ctx.drawImage(space_img, 0, 0);
+		ctx.drawImage(space_img, -intro_frame/3, -intro_frame/3);
+		ctx.restore();
+		
+		ctx.drawImage(spacex_logo_img, 135, 150);
+		
+		if (frame == 0) {
+			ctx.globalAlpha = 1;
+			intro = false;
+		}
+	}
 	
 	//
 	function drawWorld() {
@@ -107,19 +131,28 @@ function play() {
 		
 		if (delta > interval) {
 			
+			frame += 1;
+			if (frame == screen_w*4) {
+				frame = 0;
+			}
 			ctx.clearRect(0, 0, screen_w, screen_h);
+
+			if (intro) {
+				ctx.globalAlpha = 1;
+				drawWorld();
+				my_rocket.draw(ctx);
+				
+				drawIntro();
+				return;
+			}
+			
 			drawWorld();
 			
 			my_rocket.move(key_up, key_down, key_left, key_right);
 			my_rocket.draw(ctx);
 					
 			// update time stuffs
-			then = now - (delta % interval);		
-			
-			frame += 1;
-			if (frame == screen_w*4) {
-				frame = 0;
-			}
+			then = now - (delta % interval);
 		}
 		
 	}
