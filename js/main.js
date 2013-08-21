@@ -151,12 +151,12 @@ function play() {
 			drawWorld();
 			
 			my_rocket.move(key_up, key_down, key_left, key_right);
-			my_rocket.draw(ctx);
+			my_rocket.draw(ctx, frame);
 			
 			
 			//TODO adding smoke
 			var rocket_h = map_ground_limit - my_rocket.y + my_rocket.h;
-			if (my_rocket.throttle > 0.1 && rocket_h < 50) {
+			if (my_rocket.throttle > 0.05 && rocket_h < 50) {
 				smokes.push( new Smoke(my_rocket.x - my_rocket.w/2, map_ground_limit, rocket_h, my_rocket.throttle, my_rocket.rotation) );
 			}
 			

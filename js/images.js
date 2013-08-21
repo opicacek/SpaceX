@@ -19,4 +19,15 @@ var rocket_img = new Image();
 rocket_img.src = "img/rocket.png";
 
 var smoke_img = new Image();
-smoke_img.src = "img/smoke.png";
+//smoke_img.src = "img/smoke.png";
+smoke_img.src = "img/dust.png";
+
+// flame
+var flame_img_files = ["flame_1.png", "flame_2.png", "flame_3.png"];
+
+var flame_img = [];
+for (var i = 0; i < flame_img_files.length; i++) {
+	var img = new Image();
+	img.src = "img/flame/" + flame_img_files[i];
+	flame_img.push( img );
+}

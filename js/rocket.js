@@ -10,20 +10,33 @@ function Rocket(img, x, y) {
 	this.gravity = 3; //TODO
 	
 	this.throttle = 0;
-	this.acc = [0, 0];
 	this.speed = [0, 0];
 	
 	this.rotation = 0;
 	this.rotation_speed = 0;
 }
 
-Rocket.prototype.draw = function(ctx) {
+Rocket.prototype.draw = function(ctx, animation_frame) {
 	ctx.save();
 	//ctx.translate(this.x - this.img.width/2 - 850, this.y - this.img.height/2); //TODO 850
 	ctx.translate(this.x - this.img.width/2, this.y - this.img.height/2); //TODO 850
 	ctx.rotate(this.rotation * Math.PI/180);
 
 	ctx.drawImage(this.img, -this.img.width/2, -this.img.height/2);
+	
+	//TODO flame
+	if (this.throttle > 0) {
+		var animation = Math.floor(animation_frame / (20 / flame_img.length) ) % flame_img.length;
+		
+		//TODO scale
+		ctx.save();
+		var flame_scale = this.throttle / 5;
+		ctx.scale(1, flame_scale);
+		
+		ctx.drawImage(flame_img[animation], -this.img.width/2, (flame_img[0].height - 13) / flame_scale); //TODO
+		ctx.restore();
+	}
+	
 	ctx.restore();
 }
 
@@ -41,12 +54,7 @@ Rocket.prototype.move = function(key_up, key_down, key_left, key_right) {
 		this.rotation_speed += 0.02;
 	}
 		
-	this.rotation += this.rotation_speed;
-	if (this.rotation < 0) {
-		this.rotation = 360;
-	} else if (this.rotation > 360) {
-		this.rotation = 0;
-	}
+	
 	
 	// change throttle
 	if (key_up) {
@@ -71,16 +79,50 @@ Rocket.prototype.move = function(key_up, key_down, key_left, key_right) {
 	this.x += this.speed[0];
 	this.y += this.speed[1] + this.gravity;
 	
+	
+	// hitting the ground
+	if (this.y > this.map_ground_limit + this.h) {
+		
+		if (this.speed[1] > -1) {
+			console.log("Crash - too fast"); //TODO
+		}
+		
+		var rotation = this.rotation;
+		if (rotation > 180) {
+			rotation -= 360;
+		}
+		
+		if (Math.abs(rotation) < 90) { // hit ground
+			this.rotation_speed = 0;
+			// rotate //TODO rotation speed
+			if (Math.abs(rotation) < 10) { // good landing
+				this.rotation -= rotation / 20;
+			} else {
+				this.rotation += rotation / 50;
+			}
+			
+			this.y = this.map_ground_limit + this.h;
+		} else { // crash
+			console.log("Crash - fall on side"); //TODO
+			this.throttle = 0;
+			this.speed = [0, 0];
+			this.rotation_speed = 0;
+			
+			this.y = Math.min(this.y, this.map_ground_limit + this.h + 20);
+		}
+		
+	}
+	
+	this.rotation += this.rotation_speed;
+	if (this.rotation < 0) {
+		this.rotation = 360;
+	} else if (this.rotation > 360) {
+		this.rotation = 0;
+	}
+	
 	// TODO reduce speed - useless now
 	//this.speed[0] -= 0.02 * sign(this.speed[0]);
 	//this.speed[1] -= 0.02 * sign(this.speed[1]);
 	this.rotation_speed -= 0.005 * sign(this.rotation_speed);
-
 	
-	//TODO check crash
-	//TODO check rotation, speed...
-	if (this.y > this.map_ground_limit + this.h) {
-		//TODO rotate
-		this.y = this.map_ground_limit + this.h;
-	}
 }
