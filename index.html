@@ -66,16 +66,40 @@
 			}
 
 			#controls_up {
-				left: 100px;
+				left: 40px;
 				top: 40px;
 			}
 			#controls_left {
-				left: 32px;
-				top: 80px;
+				right: 130px;
+				top: 40px;
 			}
 			#controls_right {
-				left: 168px;
-				top: 80px;
+				right: 40px;
+				top: 40px;
+			}
+
+			#engine {
+				margin: 6%;
+				width: 90%;
+				height: 90%;
+				background: rgba(255, 255, 255, 0);
+			}
+
+			.arrow {
+				width: 100%;
+				height: 100%;
+			}
+			#arrow_left {
+				background-image: url('img/controls/left.png');
+			}
+			#arrow_left:hover {
+				background-image: url('img/controls/left_highlight.png');
+			}
+			#arrow_right {
+				background-image: url('img/controls/right.png');
+			}
+			#arrow_right:hover {
+				background-image: url('img/controls/right_highlight.png');
 			}
 		</style>
 	</head>
@@ -84,9 +108,15 @@
 		<div id="wrapper">
 			<canvas id="c" width="850" height="478" ></canvas>
 
-			<div id="controls_up" class="controls_button"></div>
-			<div id="controls_left" class="controls_button"></div>
-			<div id="controls_right" class="controls_button"></div>
+			<div id="controls_up" class="controls_button">
+				<div id="engine"></div>
+			</div>
+			<div id="controls_left" class="controls_button">
+				<div id="arrow_left" class="arrow"></div>
+			</div>
+			<div id="controls_right" class="controls_button">
+				<div id="arrow_right" class="arrow"></div>
+			</div>
 		</div>
 
 		<p><b>How to play:</b> ????</p>
