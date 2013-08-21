@@ -87,6 +87,26 @@ function play() {
 			return false;
 		}
 	}
+
+	// display controls
+	$('#controls_up').mousedown(function() {
+		key_up = true;
+	});
+	$('#controls_up').mouseup(function() {
+		key_up = false;
+	});
+	$('#controls_left').mousedown(function() {
+		key_left = true;
+	});
+	$('#controls_left').mouseup(function() {
+		key_left = false;
+	});
+	$('#controls_right').mousedown(function() {
+		key_right = true;
+	});
+	$('#controls_right').mouseup(function() {
+		key_right = false;
+	});
 	
 	//
 	function drawIntro() {
@@ -108,6 +128,9 @@ function play() {
 		if (frame == 0) {
 			ctx.globalAlpha = 1;
 			intro = false;
+			$('.controls_button').css({opacity: 0});
+			$('.controls_button').show();
+			$('.controls_button').animate({opacity: 1}, 500);
 		}
 	}
 	

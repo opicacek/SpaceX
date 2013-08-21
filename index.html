@@ -25,6 +25,12 @@
 				-ms-user-select: none;
 				user-select: none;
 			}
+			#wrapper {
+				position: relative;
+				margin: auto;
+				width: 850px;
+				height: 478px;
+			}
 			canvas {
 				background: #000;
 				background: url('img/space.png');
@@ -42,11 +48,46 @@
 			a img {
 				border: none;
 			}
+
+			.controls_button {
+				position: absolute;
+				cursor: pointer;
+				display: none;
+
+				background-image: url('img/controls/frame.png');
+				background-repeat: no-repeat;
+				width: 64px;
+				height: 64px;
+				margin: 0;
+				padding: 0;
+			}
+			.controls_button:hover {
+				background-image: url('img/controls/frame_highlight.png');
+			}
+
+			#controls_up {
+				left: 100px;
+				top: 40px;
+			}
+			#controls_left {
+				left: 32px;
+				top: 80px;
+			}
+			#controls_right {
+				left: 168px;
+				top: 80px;
+			}
 		</style>
 	</head>
 
 	<body onload="play()">
-		<canvas id="c" width="850" height="478" ></canvas>
+		<div id="wrapper">
+			<canvas id="c" width="850" height="478" ></canvas>
+
+			<div id="controls_up" class="controls_button"></div>
+			<div id="controls_left" class="controls_button"></div>
+			<div id="controls_right" class="controls_button"></div>
+		</div>
 
 		<p><b>How to play:</b> ????</p>
 
