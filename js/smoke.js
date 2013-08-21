@@ -15,7 +15,6 @@ function Smoke(x, y, rocket_h, throttle, rotation) {
 	var smoke_spread = rocket_h/50 + throttle/2;
 		
 	this.speed = Math.random()*smoke_spread - smoke_spread/2;
-
 	
 	if (rotation > 180) {
 		rotation -= 360;

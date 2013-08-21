@@ -87,7 +87,7 @@ Rocket.prototype.move = function(key_up, key_down, key_left, key_right) {
 	
 	var hit_limit = this.map_ground_limit + this.h;
 	if (Math.abs(rotation) < 90) { // redefine limit
-		hit_limit += Math.abs(rotation)/10;
+		hit_limit += Math.abs(rotation)/5;
 	}
 	
 	if (this.y > hit_limit) {
