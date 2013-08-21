@@ -11,7 +11,7 @@ function play() {
 	var c = document.getElementById('c');
 	var ctx = c.getContext('2d');
 
-	//TODO get canvas size from server
+	// set canvas size
 	c.width = 850;
 	c.height = 478;
 
@@ -154,7 +154,7 @@ function play() {
 			my_rocket.draw(ctx, frame);
 			
 			
-			//TODO adding smoke
+			// adding smoke
 			var rocket_h = map_ground_limit - my_rocket.y + my_rocket.h;
 			if (my_rocket.throttle > 0.05 && rocket_h < 50) {
 				smokes.push( new Smoke(my_rocket.x - my_rocket.w/2, map_ground_limit, rocket_h, my_rocket.throttle, my_rocket.rotation) );
