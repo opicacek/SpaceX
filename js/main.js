@@ -128,9 +128,9 @@ function play() {
 		if (frame == 0) {
 			ctx.globalAlpha = 1;
 			intro = false;
-			$('.controls_button').css({opacity: 0});
-			$('.controls_button').show();
-			$('.controls_button').animate({opacity: 1}, 500);
+			$('.hud').css({opacity: 0});
+			$('.hud').show();
+			$('.hud').animate({opacity: 1}, 500);
 		}
 	}
 	
@@ -175,6 +175,21 @@ function play() {
 			
 			my_rocket.move(key_up, key_down, key_left, key_right);
 			my_rocket.draw(ctx, frame);
+			
+			if (my_rocket.crash) {
+				if (my_rocket.crash_virgin) {
+					// just once
+					my_rocket.crash_virgin = false;
+					
+					$('#tryagain').css({opacity: 0});
+					$('#tryagain').show();
+					$('#tryagain').animate({opacity: 1}, 500);
+					
+					$('#tryagain').click(function() {
+						location.reload();
+					});
+				}
+			}
 			
 			
 			// adding smoke

@@ -14,6 +14,10 @@ function Rocket(img, x, y) {
 	
 	this.rotation = 0;
 	this.rotation_speed = 0;
+	
+	this.crash = false;
+	this.lost = false;
+	this.crash_virgin = true;
 }
 
 Rocket.prototype.draw = function(ctx, animation_frame) {
@@ -40,6 +44,13 @@ Rocket.prototype.draw = function(ctx, animation_frame) {
 }
 
 Rocket.prototype.move = function(key_up, key_down, key_left, key_right) {
+	
+	/*if (this.crash) {
+		return;
+	}*/
+	if (this.lost) {
+		return;
+	}
 	
 	// Math.sign
 	function sign(x) {
@@ -110,9 +121,7 @@ Rocket.prototype.move = function(key_up, key_down, key_left, key_right) {
 			this.y = hit_limit;
 		} else { // crash
 			//console.log("Crash - fall on side");
-			this.throttle = 0;
-			this.speed = [0, 0];
-			this.rotation_speed = 0;
+			this.crashed();
 			
 			//this.y = Math.min(this.y, this.map_ground_limit + this.h + 20);
 			this.y = Math.min(this.y, hit_limit + 20);
@@ -130,9 +139,25 @@ Rocket.prototype.move = function(key_up, key_down, key_left, key_right) {
 		this.rotation = 0;
 	}
 	
+	// check map limits
+	if ( this.y < -(this.h + 20) ) {
+		this.crashed();
+		this.lost = true;
+	} else if ( this.x < -(this.w + 40) || this.x > (850 + this.w + 40) ) {
+		this.crashed();
+		this.lost = true;
+	}
+	
 	// TODO reduce speed - useless now
 	//this.speed[0] -= 0.02 * sign(this.speed[0]);
 	//this.speed[1] -= 0.02 * sign(this.speed[1]);
 	this.rotation_speed -= 0.005 * sign(this.rotation_speed);
 	
+}
+
+Rocket.prototype.crashed = function() {
+	this.crash = true;
+	this.throttle = 0;
+	this.speed = [0, 0];
+	this.rotation_speed = 0;
 }
