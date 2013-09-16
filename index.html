@@ -84,6 +84,21 @@
 				height: 90%;
 				background: rgba(255, 255, 255, 0);
 			}
+			#engine_text {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				background-image: url('img/controls/engine.png');
+			}
+			#tryagain {
+				left: 420px;
+				top: 160px;
+			}
+			#tryagain_text {
+				width: 100%;
+				height: 100%;
+				background-image: url('img/controls/tryagain.png');
+			}
 
 			.arrow {
 				width: 100%;
@@ -108,14 +123,19 @@
 		<div id="wrapper">
 			<canvas id="c" width="850" height="478" ></canvas>
 
-			<div id="controls_up" class="controls_button">
+			<div id="controls_up" class="hud controls_button">
+				<div id="engine_text"></div>
 				<div id="engine"></div>
 			</div>
-			<div id="controls_left" class="controls_button">
+			<div id="controls_left" class="hud controls_button">
 				<div id="arrow_left" class="arrow"></div>
 			</div>
-			<div id="controls_right" class="controls_button">
+			<div id="controls_right" class="hud controls_button">
 				<div id="arrow_right" class="arrow"></div>
+			</div>
+
+			<div id="tryagain" class="controls_button">
+				<div id="tryagain_text"></div>
 			</div>
 		</div>
 
